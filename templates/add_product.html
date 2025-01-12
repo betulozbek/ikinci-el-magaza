@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Ürün Ekle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>İkinci El Mağaza</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li><a href="/list">Ürünler</a></li>
+                    <li><a href="/cart">Sepet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="form-container container">
+        <h2>Yeni Ürün Ekle</h2>
+        <form action="{{ url_for('add_product') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="urun_ad">Ürün Adı:</label>
+                <input type="text" id="urun_ad" name="urun_ad" required placeholder="Ürünün adını girin...">
+            </div>
+
+            <div class="form-group">
+                <label for="urun_kategori">Kategori:</label>
+                <input type="text" id="urun_kategori" name="urun_kategori" required placeholder="Ürünün kategorisini girin...">
+            </div>
+
+            <div class="form-group">
+                <label for="urun_fiyat">Fiyat (₺):</label>
+                <input type="number" id="urun_fiyat" name="urun_fiyat" required placeholder="Fiyatı girin...">
+            </div>
+
+            <div class="form-group">
+                <label for="urun_stok">Stok Adedi:</label>
+                <input type="number" id="urun_stok" name="urun_stok" required placeholder="Stok adedini girin...">
+            </div>
+
+            <div class="form-group">
+                <label for="urun_birim">Birim:</label>
+                <input type="text" id="urun_birim" name="urun_birim" required placeholder="Birim bilgisi girin...">
+            </div>
+
+            <div class="form-group">
+                <label for="urun_resim">Ürün Resmi:</label>
+                <input type="file" id="urun_resim" name="urun_resim">
+            </div>
+
+            <button type="submit" class="submit-btn">Ekle</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 İkinci El Mağaza</p>
+    </footer>
+</body>
+</html>

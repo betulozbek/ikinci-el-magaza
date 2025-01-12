@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Listesi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>İkinci El Mağaza</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li><a href="/list">Ürünler</a></li>
+                    <li><a href="/cart">Sepet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Ürün Listesi -->
+    <div class="product-list container">
+        <h2>Ürünler</h2>
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Kategori</th>
+                    <th>Fiyat</th>
+                    <th>Stok</th>
+                    <th>Resim</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.urun_ad }}</td>
+                    <td>{{ product.urun_kategori }}</td>
+                    <td>{{ product.urun_fiyat }}₺</td>
+                    <td>{{ product.urun_stok }}</td>
+                    <!-- Görsel yolu güncellendi -->
+                    <td>
+                        <img src="{{ url_for('static', filename='images/' + (product.urun_resim if product.urun_resim else 'default.jpg')) }}" alt="Ürün Resmi" class="product-img">
+                    </td>
+                    <td>
+                        <a href="{{ url_for('update_product', product_id=product.urun_id) }}" class="button update-btn">Güncelle</a>
+                        <form action="{{ url_for('delete_product', product_id=product.urun_id) }}" method="post" class="inline-form">
+                            <button type="submit" class="button delete-btn">Sil</button>
+                        </form>
+                        <a href="{{ url_for('add_to_cart', product_id=product.urun_id) }}" class="button add-btn">Sepete Ekle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('add_product') }}" class="button add-product-btn">Yeni Ürün Ekle</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 İkinci El Mağaza</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

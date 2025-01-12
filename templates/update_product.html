@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Güncelleme</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>İkinci El Mağaza</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li><a href="/list">Ürünler</a></li>
+                    <li><a href="/cart">Sepet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="update-product container">
+        <h2>Ürün Güncelle</h2>
+        <form method="POST" action="{{ url_for('update_product', product_id=product['urun_id']) }}">
+            <div class="form-group">
+                <label for="urun_ad">Ürün Adı:</label>
+                <input type="text" id="urun_ad" name="urun_ad" value="{{ product['urun_ad'] }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="urun_kategori">Kategori:</label>
+                <input type="text" id="urun_kategori" name="urun_kategori" value="{{ product['urun_kategori'] }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="urun_fiyat">Fiyat:</label>
+                <input type="number" id="urun_fiyat" name="urun_fiyat" value="{{ product['urun_fiyat'] }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="urun_stok">Stok:</label>
+                <input type="number" id="urun_stok" name="urun_stok" value="{{ product['urun_stok'] }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="urun_birim">Birim:</label>
+                <input type="text" id="urun_birim" name="urun_birim" value="{{ product['urun_birim'] }}" required>
+            </div>
+
+            <button type="submit" class="button update-btn">Güncelle</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 İkinci El Mağaza</p>
+    </footer>
+</body>
+</html>
