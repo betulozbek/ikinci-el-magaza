@@ -2,20 +2,24 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import mysql.connector
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+
+# .env dosyasını yükle
+load_dotenv()
 
 app = Flask(__name__)
 
 # Veritabanı bağlantısı
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",  # Veritabanı kullanıcı adı
-    password="byS43R3TT.",  # Veritabanı şifresi
-    database="ikinci_el_magaza"  # Veritabanı adı
+    host=os.getenv("DATABASE_HOST"),
+    user=os.getenv("DATABASE_USER"),  # Veritabanı kullanıcı adı
+    password=os.getenv("DATABASE_PASSWORD"),  # Veritabanı şifresi
+    database=os.getenv("DATABASE_NAME")  # Veritabanı adı
 )
 
 # Görsel Yükleme için Konfigürasyon
-app.config['UPLOAD_FOLDER'] = 'static/images'
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = os.getenv("UPLOAD_FOLDER")
+app.config['ALLOWED_EXTENSIONS'] = set(os.getenv("ALLOWED_EXTENSIONS").split(","))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
@@ -136,5 +140,5 @@ def remove_from_cart(product_id):
     return redirect(url_for('cart'))
 
 if __name__ == '__main__':
-    app.secret_key = 'your_secret_key'  # session için secret key belirleyin
+    app.secret_key = os.getenv("SECRET_KEY")  # session için secret key çevresel değişkenden alınır
     app.run(debug=True)
